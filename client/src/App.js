@@ -11,12 +11,9 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/auth/google"
         >
-          Learn React
+          Sign In With Google
         </a>
       </header>
     </div>
