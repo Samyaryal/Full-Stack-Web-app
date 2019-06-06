@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Header extends Component {
+    renderContent() {
+        switch (this.props.auth){
+            case null:
+                return 'still deciding';
+
+            case false:
+                return 'i am loggedout'; 
+
+            default:
+                return 'i am loggedin';
+        }
+    }
     render() {
         return (
             <nav>
@@ -9,14 +22,16 @@ class Header extends Component {
                        Emaily
                     </a>
                     <ul className="right">
-                       <li>
-                           <a>Login With Google</a>
-                       </li>
+                        {this.renderContent()}
                     </ul>
                 </div>
             </nav>
-        )
+        );
     }
 }
 
-export default Header; 
+function mapStateToProps({ auth }){
+    return{ auth };
+
+}
+export default connect(mapStateToProps) (Header); 
