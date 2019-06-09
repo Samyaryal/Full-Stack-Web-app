@@ -15,6 +15,7 @@ class Header extends Component {
                 return<li><a href="/api/logout">Logout</a></li>;
         }
     }
+    
     render() {
         return (
             <nav>
