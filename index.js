@@ -27,18 +27,20 @@ app.use(passport.session());
 require('./Routes/authRoutes')(app);
 require('./Routes/billingRoutes')(app);
 
-if (process.env.NODE_env === 'production') {
+if (process.env.NODE_ENV === 'production') {
     //Express will serve up oroduction assets 
     //like our main.js file of main.css file!
-    //app.use(express.stactic('client/build'));
+    //app.use(express.static('client/build'));
+    
+    app.use(express.static('client/build'));  
     const path = require('path');
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    //app.use(express.static(path.join(__dirname, 'client/build')));
 
     //Express will serve up the index.html file
     //if it doesn't recognise the route
     
-    app.get('/', (req, res) => { 
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    app.get('*', (req, res) => { 
+        res.sendfile(path.resolve(__dirname, 'client', 'build',));
     });
 }
 
