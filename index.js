@@ -30,11 +30,13 @@ require('./Routes/billingRoutes')(app);
 if (process.env.NODE_env === 'production') {
     //Express will serve up oroduction assets 
     //like our main.js file of main.css file!
-    app.use(express.stactic('client/build'));
+    //app.use(express.stactic('client/build'));
+    const path = require('path');
+    app.use(express.static(path.join(__dirname, 'client/build')));
 
     //Express will serve up the index.html file
     //if it doesn't recognise the route
-    const path = require('path');
+    
     app.get('*', (req, res) => { 
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
