@@ -19,6 +19,7 @@ class Mailer extends helper.Mail{
     formatAddresses(recipients) {
         return recipients.map(({ email }) => {
             return new helper.Email(email);
+            
         });
     }
     addClickTracking() {
@@ -42,7 +43,7 @@ class Mailer extends helper.Mail{
             path: '/v3/mail/send',
             body: this.toJSON()
         });
-        
+
         const response = this.sgApi.API(request);
         return Response;
     }
