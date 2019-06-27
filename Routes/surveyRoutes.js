@@ -18,19 +18,21 @@ module.exports = app => {
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
-        const events = _.map(req.body, ({ email, url}) => {
-            const pathname = new URL(url).pathname;  //extract the path from url ani '/api/surveys/5971/yes vanne matra extract garxa 
-            const p =  new Path('/api/surveys/:surveyId/:choice');
-            const match = p.test(pathname);
-            if (match) {
-                return { email, surveyId: match.surveyId, choice: match.choice};
-            }
-        });
+        const p =  new Path('/api/surveys/:surveyId/:choice');
+        const events = _.chain(req.body)
+            .map(({ email, url}) => {  //extract the path from url ani '/api/surveys/5971/yes vanne matra extract garxa 
+                const match = p.test(new URL(url).pathname);
+                if (match) {
+                    return { email, surveyId: match.surveyId, choice: match.choice};
+                }
+            })
+            .compact()
+            .uniqBy('email', 'surveyId')
+            .value();
 
-        const compactEvents = _.compact(events);
-        const uniqueEvents = _.uniqBy(compactEvents, 'email', 'surveyId');
+        console.log(events);
 
-        console.log(uniqueEvents);
+        res.send({});
     });
 
 
