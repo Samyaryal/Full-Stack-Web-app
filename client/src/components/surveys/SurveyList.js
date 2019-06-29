@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSurveys } from '../../actions';
 
+
 class SurveyList extends Component  {
     componentDidMount()  {
         this.props.fetchSurveys();
     }
 
-    
+
     renderSurveys() {
         return this.props.surveys.reverse().map(survey => {
             return (
